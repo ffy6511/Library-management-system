@@ -1,0 +1,53 @@
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  height: 4rem;
+}
+
+.brand {
+  display: flex;
+}
+
+.logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.nav {
+  display: none;
+  margin-left: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .nav {
+    display: flex;
+  }
+}
+
+.menuButton {
+  border: none;
+}

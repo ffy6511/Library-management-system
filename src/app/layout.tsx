@@ -1,11 +1,6 @@
 'use client';
-import { Geist } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import "./globals.css";
-
-const geist = Geist({
-  subsets: ["latin"],
-});
 
 export default function RootLayout({
   children,
@@ -14,7 +9,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh">
-      <body className={`${geist.className} antialiased`}>
+      <body>
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>

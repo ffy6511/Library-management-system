@@ -1,0 +1,33 @@
+.layout {
+  min-height: 100vh;
+}
+
+.header {
+  padding: 0;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.content {
+  background-color: #f9fafb;
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
