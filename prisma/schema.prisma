@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id             String         @id
+  category       String
+  title          String
+  publisher      String
+  publishYear    Int
+  author         String
+  price          Decimal        @db.Decimal(10, 2)
+  totalCount     Int
+  availableCount Int
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  borrowRecords  BorrowRecord[]
+
+  @@map("books")
+}
+
+model LibraryCard {
+  id           String         @id
+  name         String
+  department   String
+  type         CardType
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  borrowRecords BorrowRecord[]
+
+  @@map("library_cards")
+}
+
+model Admin {
+  id            String         @id
+  password      String
+  name          String
+  contact       String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  borrowRecords BorrowRecord[]
+
+  @@map("admins")
+}
+
+model BorrowRecord {
+  id         Int        @id @default(autoincrement())
+  bookId     String
+  cardId     String
+  borrowDate DateTime   @db.Date
+  dueDate    DateTime   @db.Date
+  returnDate DateTime?  @db.Date
+  adminId    String
+  status     LoanStatus @default(borrowed)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  book       Book       @relation(fields: [bookId], references: [id])
+  card       LibraryCard @relation(fields: [cardId], references: [id])
+  admin      Admin      @relation(fields: [adminId], references: [id])
+
+  @@map("borrow_records")
+}
+
+enum CardType {
+  student
+  teacher
+}
+
+enum LoanStatus {
+  borrowed
+  returned
+}

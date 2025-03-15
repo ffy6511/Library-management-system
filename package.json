@@ -11,7 +11,10 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.2.2"
+    "next": "15.2.2",
+    "next-auth": "^4.24.7",
+    "@prisma/client": "^5.10.0",
+    "bcrypt": "^5.1.1"
   },
   "devDependencies": {
     "typescript": "^5",
@@ -22,6 +25,12 @@
     "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
-    "@eslint/eslintrc": "^3"
+    "@eslint/eslintrc": "^3",
+    "@types/bcrypt": "^5.0.2",
+    "prisma": "^5.10.0",
+    "ts-node": "^10.9.2"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
   }
 }

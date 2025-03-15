@@ -1,0 +1,103 @@
+.container {
+  min-height: 100vh;
+  background-color: rgb(249, 250, 251);
+}
+
+.loadingContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingText {
+  font-size: 1.5rem;
+}
+
+.navbar {
+  background-color: white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.contentContainer {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .contentContainer {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contentContainer {
+    padding: 0 2rem;
+  }
+}
+
+.navbarInner {
+  display: flex;
+  justify-content: space-between;
+  height: 4rem;
+}
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+}
+
+.navbarTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(17, 24, 39);
+}
+
+.welcomeText {
+  color: rgb(55, 65, 81);
+  margin-right: 1rem;
+}
+
+.main {
+  composes: contentContainer;
+  padding: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background-color: white;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  color: rgb(17, 24, 39);
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.cardDescription {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: rgb(107, 114, 128);
+}
