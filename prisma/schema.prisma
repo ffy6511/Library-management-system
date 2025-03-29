@@ -15,11 +15,11 @@ model Book {
   publishYear    Int
   author         String
   price          Decimal        @db.Decimal(10, 2)
-  totalCount     Int
-  availableCount Int
+  total          Int
+  stock          Int
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
-  borrowRecords  BorrowRecord[]
+  borrowRecords  BorrowRecord[] // 添加反向关系
 
   @@map("books")
 }
@@ -31,7 +31,7 @@ model LibraryCard {
   type         CardType
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  borrowRecords BorrowRecord[]
+  borrowRecords BorrowRecord[] // 添加反向关系
 
   @@map("library_cards")
 }
@@ -43,7 +43,7 @@ model Admin {
   contact       String
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
-  borrowRecords BorrowRecord[]
+  borrowRecords BorrowRecord[] // 添加反向关系
 
   @@map("admins")
 }
@@ -59,6 +59,7 @@ model BorrowRecord {
   status     LoanStatus @default(borrowed)
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
+  
   book       Book       @relation(fields: [bookId], references: [id])
   card       LibraryCard @relation(fields: [cardId], references: [id])
   admin      Admin      @relation(fields: [adminId], references: [id])

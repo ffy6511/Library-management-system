@@ -1,33 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { importBook } from "@/lib/book-utils";
 
 export async function POST(request: NextRequest) {
   try {
-    const { books } = await request.json();
+    const { action, data } = await request.json();
+    
+    if (action !== 'batch-import') {
+      return NextResponse.json({ error: "无效的操作类型" }, { status: 400 });
+    }
 
-    // 使用事务确保批量入库的原子性
-    const result = await prisma.$transaction(
-      books.map((book: any) =>
-        prisma.book.create({
-          data: {
-            id: book.id,
-            category: book.category,
-            title: book.title,
-            publisher: book.publisher,
-            publishYear: book.publishYear,
-            author: book.author,
-            price: book.price,
-            totalCount: book.count,
-            availableCount: book.count,
-          },
-        })
-      )
-    );
+    const { books } = data;
+    const results = await Promise.all(books.map(book => importBook(book)));
 
     return NextResponse.json({
       success: true,
-      count: result.length,
-      books: result,
+      count: results.length,
+      data: results
     });
   } catch (error) {
     return NextResponse.json(
