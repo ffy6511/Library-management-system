@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-color: rgb(249, 250, 251);
+  background-color: var(--default-bg-color);
 }
 
 .loadingContainer {
@@ -15,7 +15,7 @@
 }
 
 .navbar {
-  background-color: white;
+  background-color: var(--default-bg-color);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
@@ -51,11 +51,11 @@
 .navbarTitle {
   font-size: 1.5rem;
   font-weight: 700;
-  color: rgb(17, 24, 39);
+  color: var(--selected-text-color);
 }
 
 .welcomeText {
-  color: rgb(55, 65, 81);
+  color: var(--default-text-color);
   margin-right: 1rem;
 }
 
@@ -83,12 +83,12 @@
 }
 
 .card {
-  background-color: white;
+  background-color: var(--default-bg-color);
   overflow: hidden;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  color: rgb(17, 24, 39);
+  color: var(--selected-text-color);
 }
 
 .cardTitle {
@@ -99,5 +99,5 @@
 .cardDescription {
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: rgb(107, 114, 128);
+  color: var(--default-text-color);
 }

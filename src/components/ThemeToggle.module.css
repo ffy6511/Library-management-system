@@ -1,0 +1,75 @@
+.themeToggle {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    border: none;
+    border-radius: 50%;
+    background: var(--theme-toggle-bg, #f1f1f1);
+    color: var(--theme-toggle-color, rgb(235, 141, 27));
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    margin-top: -7px;
+    box-shadow: var(--shadow-color);
+    position: relative;
+  }
+  
+  .themeToggle:hover {
+    box-shadow: var(--shadow-color);
+    background-color: var(--sidebar-hover-color);
+  }
+  
+  .themeToggle:active {
+    transform: scale(0.95);
+  }
+  
+  [data-theme='dark'] .themeToggle {
+    --theme-toggle-bg: transparent;
+    --theme-toggle-color: #e2be63;
+  }
+  
+  /* 图标动画 */
+  @keyframes slideOutLeft {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes slideInRight {
+    0% {
+      transform: translateX(20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+    
+  }
+  
+  .icon.entering {
+    animation: slideInRight 0.3s ease-in-out;
+  }
+  
+  .icon.leaving {
+    animation: slideOutLeft 0.3s ease-in-out;
+  }
+  

@@ -7,6 +7,7 @@ import { Modal } from 'antd';
 import styles from './page.module.css';
 import Card from '@/components/ui/Card';
 import BorrowForm from '@/components/borrow/BorrowForm';
+import { ThemeProvider } from '@/context/ThemeContext';
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -91,6 +92,7 @@ export default function Home() {
   };
 
   return (
+    <ThemeProvider>
     <div className={styles.container}>
       <nav className={styles.navbar}>
         <div className={styles.navbarContent}>
@@ -118,5 +120,6 @@ export default function Home() {
         </Modal>
       </main>
     </div>
+    </ThemeProvider>
   );
 }
