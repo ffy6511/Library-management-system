@@ -9,6 +9,7 @@ import { Modal } from 'antd';
 import styles from './page.module.css';
 import Card from '@/components/ui/Card';
 import BorrowForm from '@/components/borrow/BorrowForm';
+import CardForm from '@/components/card/cardForm';
 import { ThemeProvider } from '@/context/ThemeContext';
 
 export default function Home() {
@@ -86,7 +87,7 @@ export default function Home() {
         <Card
           title="借书证管理"
           description="管理借书证的增加、删除和信息修改"
-          onClick={() => showModal("借书证管理", <div>借书证管理组件</div>)}
+          onClick={() => showModal("借书证管理", <CardForm />)}
           icon={<IdcardOutlined />}
         />
         <Card

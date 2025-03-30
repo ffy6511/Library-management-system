@@ -3,6 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/context/ThemeContext";
 import ThemeToggle from "@/components/ThemeToggle";
 import "./globals.css";
+import '@ant-design/v5-patch-for-react-19';
 
 export default function RootLayout({
   children,
