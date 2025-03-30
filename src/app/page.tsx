@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { BookOutlined, SwapOutlined, IdcardOutlined } from '@ant-design/icons';
+import AddBookForm from '@/components/addBook/addBookForm';
 import { Modal } from 'antd';
 import styles from './page.module.css';
 import Card from '@/components/ui/Card';
@@ -72,7 +73,7 @@ export default function Home() {
         <Card
           title="图书管理"
           description="管理图书信息，包括入库、查询等操作"
-          onClick={() => showModal("图书管理", <div>图书管理组件</div>)}
+          onClick={() => showModal("图书管理", <AddBookForm />)}
           icon={<BookOutlined />}
         />
         <Card
