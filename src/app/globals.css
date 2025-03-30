@@ -16,10 +16,11 @@ body {
   --hover-bg-color: #E9E9E9;
   --multiselect-bg-color: rgba(24, 144, 255, 0.1);
   --selected-bg-color: #dedfe0;
-  --default-bg-color: rgba(255, 255, 255, 0.4);
+  --default-bg-color: rgba(243, 239, 239, 0.4);
   --selected-text-color: #202122;
   --hover-text-color: #202122;
-  --default-text-color: #888;
+  --default-text-color: #6f6e6e;
+  color: var(--default-text-color);
 }
 
 /* 暗色主题变量 */
@@ -27,10 +28,11 @@ body {
   --hover-bg-color: rgba(255, 255, 255, 0.1);
   --multiselect-bg-color: rgba(24, 144, 255, 0.2);
   --selected-bg-color: rgba(255, 255, 255, 0.15);
-  --default-bg-color: rgba(0, 0, 0, 0.2);
+  --default-bg-color: rgba(51,51,51);
   --selected-text-color: #ffffff;
   --hover-text-color: #ffffff;
-  --default-text-color: #a0a0a0;
+  --default-text-color: rgba(237,237,237, 0.9);
+  color: var(--default-text-color);
 }
 
 a {
@@ -77,4 +79,19 @@ a {
   background: linear-gradient(90deg, #0056b3, #0096d6);
   transform: scale(1.1);
   box-shadow: 3px 6px 15px rgba(0, 102, 204, 0.5);
+}
+
+/* card相关 */
+:root[data-theme='light'] {
+  --card-bg-color: rgb(235, 243, 247);
+  --card-text-color: #111827;
+  --card-secondary-text-color: #6b7280;
+  --card-icon-bg-color: #f3f4f6;
+}
+
+:root[data-theme='dark'] {
+  --card-bg-color: #1a1a1a;
+  --card-text-color: #f3f4f6;
+  --card-secondary-text-color: #9ca3af;
+  --card-icon-bg-color: #2d2d2d;
 }

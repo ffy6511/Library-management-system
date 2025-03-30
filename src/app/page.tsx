@@ -94,17 +94,10 @@ export default function Home() {
   return (
     <ThemeProvider>
     <div className={styles.container}>
+
       <nav className={styles.navbar}>
-        <div className={styles.navbarContent}>
-          <div className={styles.navbarInner}>
-            <div className={styles.flexCenter}>
-              <h1 className={styles.navbarTitle} style={{ cursor: 'pointer' }}>图书管理系统</h1>
-            </div>
-            <div className={styles.flexCenter}>
-              <span className={styles.welcomeText}>欢迎, {session.user.name}</span>
-            </div>
-          </div>
-        </div>
+        <h1 className={styles.navbarTitle}>图书管理系统</h1>
+          {/* <div className={styles.welcomeText}>欢迎, {session.user.name}</div> */}
       </nav>
 
       <main className={styles.main}>

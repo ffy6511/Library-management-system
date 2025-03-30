@@ -17,6 +17,9 @@
 .navbar {
   background-color: var(--default-bg-color);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  height: 3rem;
+  align-items: end;
+  width: 100%;
 }
 
 .contentContainer {
@@ -46,16 +49,20 @@
 .flexCenter {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .navbarTitle {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--selected-text-color);
+  text-align: center;
 }
 
 .welcomeText {
   color: var(--default-text-color);
+  margin-left: auto;
   margin-right: 1rem;
 }
 
