@@ -10,6 +10,7 @@ import styles from './page.module.css';
 import Card from '@/components/ui/Card';
 import BorrowForm from '@/components/borrow/BorrowForm';
 import CardForm from '@/components/card/cardForm';
+import ReturnBookForm from '@/components/return/ReturnBookForm';
 import { ThemeProvider } from '@/context/ThemeContext';
 
 export default function Home() {
@@ -79,9 +80,9 @@ export default function Home() {
           icon={<BookOutlined />}
         />
         <Card
-          title="借还书管理"
+          title="还书管理"
           description="处理图书借阅和归还，查看借阅记录"
-          onClick={() => showModal("借还书管理", <BorrowForm onBorrow={handleBorrow} />)}
+          onClick={() => showModal("还书管理", <ReturnBookForm/>)}
           icon={<SwapOutlined />}
         />
         <Card

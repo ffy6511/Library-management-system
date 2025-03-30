@@ -35,9 +35,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(records);
 
     } else if (action === 'borrow') {
-      const { cardId, bookId } = data;
+      const { cardId, bookIds } = data;
       
-      if (!cardId || !bookId) {
+      if (!cardId || !bookIds || !Array.isArray(bookIds) || bookIds.length === 0) {
         return NextResponse.json(
           { error: "缺少必要参数" },
           { status: 400 }
@@ -56,47 +56,46 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // 检查图书是否存在且有库存
-      const book = await prisma.book.findUnique({
-        where: { id: bookId }
+      // 检查所有图书是否存在且有库存
+      const books = await prisma.book.findMany({
+        where: {
+          id: { in: bookIds }
+        }
       });
 
-      if (!book) {
+      if (books.length !== bookIds.length) {
         return NextResponse.json(
-          { error: "图书不存在" },
+          { error: "部分图书不存在" },
           { status: 404 }
         );
       }
 
-      if (book.stock <= 0) {
-        // 查找最近归还时间
-        const lastReturn = await prisma.borrowRecord.findFirst({
-          where: { bookId, status: 'returned' },
-          orderBy: { returnDate: 'desc' },
-          select: { returnDate: true }
-        });
-        
+      const noStockBooks = books.filter(book => book.stock <= 0);
+      if (noStockBooks.length > 0) {
         return NextResponse.json(
           { 
-            error: "图书已无可借库存", 
-            lastReturnDate: lastReturn?.returnDate || null 
+            error: "以下图书已无可借库存", 
+            books: noStockBooks.map(book => book.title)
           },
           { status: 400 }
         );
       }
 
       // 检查是否有未还的相同图书
-      const existingBorrow = await prisma.borrowRecord.findFirst({
+      const existingBorrows = await prisma.borrowRecord.findMany({
         where: {
           cardId,
-          bookId,
+          bookId: { in: bookIds },
           status: "borrowed"
         }
       });
 
-      if (existingBorrow) {
+      if (existingBorrows.length > 0) {
         return NextResponse.json(
-          { error: "已借阅此书且未归还" },
+          { 
+            error: "以下图书已借阅且未归还",
+            books: existingBorrows.map(record => record.bookId)
+          },
           { status: 400 }
         );
       }
@@ -106,7 +105,7 @@ export async function POST(request: NextRequest) {
       const dueDate = new Date();
       dueDate.setDate(dueDate.getDate() + 30); // 设置30天的借阅期限
 
-      const [borrowRecord] = await prisma.$transaction([
+      const transactions = bookIds.flatMap(bookId => [
         prisma.borrowRecord.create({
           data: {
             bookId,
@@ -127,7 +126,10 @@ export async function POST(request: NextRequest) {
         })
       ]);
 
-      return NextResponse.json(borrowRecord);
+      const results = await prisma.$transaction(transactions);
+      const borrowRecords = results.filter(result => 'status' in result);
+
+      return NextResponse.json(borrowRecords);
     } else {
       return NextResponse.json(
         { error: "无效的操作类型" },

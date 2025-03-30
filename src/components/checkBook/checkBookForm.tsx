@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Form, Input, Button, DatePicker, InputNumber, Select, message, Radio } from 'antd';
+import { Form, Input, Button, DatePicker, InputNumber, Select, message, Radio, Modal } from 'antd';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 
@@ -78,6 +78,56 @@ const CheckBookForm = () => {
     }
   };
 
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [borrowModalVisible, setBorrowModalVisible] = useState(false);
+  const [borrowCardId, setBorrowCardId] = useState('');
+  
+  const handleBorrow = async () => {
+    if (!borrowCardId) {
+      message.error('请输入借书证号');
+      return;
+    }
+    
+    try {
+      setLoading(true);
+      const response = await fetch('/api/borrow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'borrow',
+          data: {
+            cardId: borrowCardId,
+            bookIds: selectedRows.map(row => row.id)
+          }
+        }),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        message.success('借书成功');
+        setBorrowModalVisible(false);
+        setBorrowCardId('');
+        // 更新本地数据中被借阅图书的库存
+        const updatedRows = rows.map(row => {
+          if (selectedRows.find(selected => selected.id === row.id)) {
+            return { ...row, stock: row.stock - 1 };
+          }
+          return row;
+        });
+        setRows(updatedRows);
+        setSelectedRows([]);
+      } else {
+        message.error(result.error || '借书失败');
+      }
+    } catch (error) {
+      message.error('借书失败');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   return (
     <div>
       <Button 
@@ -94,6 +144,16 @@ const CheckBookForm = () => {
       >
         查询结果
       </Button>
+
+      {selectedRows.length > 0 && (
+            <Button
+              type="primary"
+              onClick={() => setBorrowModalVisible(true)}
+              style={{ marginLeft: 16 }}
+            >
+              借阅选中图书
+            </Button>
+          )}
 
       {!showResults ? (
         <Form
@@ -163,17 +223,41 @@ const CheckBookForm = () => {
           </Form.Item>
         </Form>
       ) : (
-        <Paper sx={{ height: 400, width: '100%' }}>
-          <DataGrid
+    <Paper sx={{ height: 400, width: '100%' }}>          
+        <DataGrid
             rows={rows}
             columns={columns}
             paginationModel={paginationModel}
             onPaginationModelChange={setPaginationModel}
             pageSizeOptions={[5, 10, 20]}
+            checkboxSelection
+            onRowSelectionModelChange={(newSelection) => {
+              setSelectedRows(rows.filter(row => newSelection.includes(row.id)));
+            }}
             sx={{ border: 0 }}
           />
+
         </Paper>
       )}
+
+      <Modal
+        title="借阅图书"
+        open={borrowModalVisible}
+        onOk={handleBorrow}
+        onCancel={() => {
+          setBorrowModalVisible(false);
+          setBorrowCardId('');
+        }}
+        confirmLoading={loading}
+      >
+        <Form.Item label="借书证号" required>
+          <Input
+            value={borrowCardId}
+            onChange={e => setBorrowCardId(e.target.value)}
+            placeholder="请输入借书证号"
+          />
+        </Form.Item>
+      </Modal>
     </div>
   );
 };
