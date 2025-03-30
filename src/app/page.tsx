@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { BookOutlined, SwapOutlined, IdcardOutlined } from '@ant-design/icons';
 import AddBookForm from '@/components/addBook/addBookForm';
+import CheckBookForm from '@/components/checkBook/checkBookForm';
 import { Modal } from 'antd';
 import styles from './page.module.css';
 import Card from '@/components/ui/Card';
@@ -87,6 +88,12 @@ export default function Home() {
           description="管理借书证的增加、删除和信息修改"
           onClick={() => showModal("借书证管理", <div>借书证管理组件</div>)}
           icon={<IdcardOutlined />}
+        />
+        <Card
+          title="图书查询"
+          description="查询图书信息，包括库存、价格等"
+          onClick={() => showModal("图书查询", <CheckBookForm />)}
+          icon={<BookOutlined />}
         />
       </div>
     );
