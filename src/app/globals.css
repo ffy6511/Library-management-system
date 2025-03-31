@@ -90,7 +90,7 @@ a {
 }
 
 :root[data-theme='dark'] {
-  --card-bg-color: #1a1a1a;
+  --card-bg-color: #403f3f;
   --card-text-color: #f3f4f6;
   --card-secondary-text-color: #9ca3af;
   --card-icon-bg-color: #2d2d2d;

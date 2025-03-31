@@ -19,27 +19,16 @@ export default function Navbar({ children }: NavbarProps) {
             <span className={styles.title}>图书管理系统</span>
           </div>
           <div className={styles.nav}>
-            <Menu mode="horizontal" defaultSelectedKeys={['1']}>
+            <Menu mode="horizontal" defaultSelectedKeys={['1']} style={{ backgroundColor: 'transparent' }}>
               <Menu.Item key="1">
                 <Link href="/">首页</Link>
               </Menu.Item>
               <Menu.Item key="2">
-                <Link href="/books">图书管理</Link>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <Link href="/borrow">借还书</Link>
-              </Menu.Item>
-              <Menu.Item key="4">
-                <Link href="/cards">借书证</Link>
+                <Link href="/about">关于</Link>
               </Menu.Item>
             </Menu>
           </div>
         </div>
-        <Button
-          className={styles.menuButton}
-          icon={<MenuOutlined />}
-          onClick={() => {}}
-        />
       </div>
       {children}
     </div>

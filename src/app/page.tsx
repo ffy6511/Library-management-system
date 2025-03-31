@@ -1,128 +1,148 @@
 'use client';
+
+import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { BookOutlined, SwapOutlined, IdcardOutlined } from '@ant-design/icons';
-import AddBookForm from '@/components/addBook/addBookForm';
-import CheckBookForm from '@/components/checkBook/checkBookForm';
-import { Modal } from 'antd';
-import styles from './page.module.css';
-import Card from '@/components/ui/Card';
-import BorrowForm from '@/components/borrow/BorrowForm';
-import CardForm from '@/components/card/cardForm';
-import ReturnBookForm from '@/components/return/ReturnBookForm';
+import {
+  AppBar,
+  Box,
+  CssBaseline,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import InfoIcon from '@mui/icons-material/Info';
+import ThemeToggle from '@/components/ThemeToggle';
 import { ThemeProvider } from '@/context/ThemeContext';
+
+const drawerWidth = 240;
 
 export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalTitle, setModalTitle] = useState('');
-  const [modalContent, setModalContent] = useState<React.ReactNode | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/auth/login');
-    }
-  }, [status, router]);
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const menuItems = [
+    { text: '管理', icon: <DashboardIcon />, path: '/manage' },
+    { text: '关于', icon: <InfoIcon />, path: '/about' },
+  ];
+
+  const handleListItemClick = (path: string, index: number) => {
+    setSelectedIndex(index);
+    router.push(path);
+  };
+
+  const drawer = (
+    <div>
+      <Toolbar />
+      <List>
+        {menuItems.map((item, index) => (
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton
+              selected={selectedIndex === index}
+              onClick={() => handleListItemClick(item.path, index)}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
 
   if (status === 'loading') {
     return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.loadingText}>加载中...</div>
-      </div>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Typography>加载中...</Typography>
+      </Box>
     );
   }
 
-  if (!session) {
+  if (status === 'unauthenticated') {
+    router.push('/auth/login');
     return null;
   }
 
-  const handleBorrow = async (data: any) => {
-    try {
-      const response = await fetch('/api/borrow', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || '借书失败');
-      }
-
-      await response.json();
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const showModal = (title: string, content: React.ReactNode) => {
-    setModalTitle(title);
-    setModalContent(content);
-    setModalVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalVisible(false);
-    setModalContent(null);
-  };
-
-  const renderMainContent = () => {
-    return (
-      <div className={styles.grid}>
-        <Card
-          title="图书管理"
-          description="管理图书信息，包括入库、查询等操作"
-          onClick={() => showModal("图书管理", <AddBookForm />)}
-          icon={<BookOutlined />}
-        />
-        <Card
-          title="还书管理"
-          description="处理图书借阅和归还，查看借阅记录"
-          onClick={() => showModal("还书管理", <ReturnBookForm/>)}
-          icon={<SwapOutlined />}
-        />
-        <Card
-          title="借书证管理"
-          description="管理借书证的增加、删除和信息修改"
-          onClick={() => showModal("借书证管理", <CardForm />)}
-          icon={<IdcardOutlined />}
-        />
-        <Card
-          title="图书查询"
-          description="查询图书信息，包括库存、价格等"
-          onClick={() => showModal("图书查询", <CheckBookForm />)}
-          icon={<BookOutlined />}
-        />
-      </div>
-    );
-  };
-
   return (
     <ThemeProvider>
-    <div className={styles.container}>
-
-      <nav className={styles.navbar}>
-        <h1 className={styles.navbarTitle}>图书管理系统</h1>
-          {/* <div className={styles.welcomeText}>欢迎, {session.user.name}</div> */}
-      </nav>
-
-      <main className={styles.main}>
-        {renderMainContent()}
-        <Modal
-          title={modalTitle}
-          open={modalVisible}
-          onCancel={handleCloseModal}
-          footer={null}
-          width={800}
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          sx={{
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            ml: { sm: `${drawerWidth}px` },
+          }}
         >
-          {modalContent}
-        </Modal>
-      </main>
-    </div>
+          <Toolbar sx={{ justifyContent: 'space-between' }}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              图书管理系统
+            </Typography>
+            <ThemeToggle />
+          </Toolbar>
+        </AppBar>
+        <Box
+          component="nav"
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        >
+          <Drawer
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{ keepMounted: true }}
+            sx={{
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            }}
+          >
+            {drawer}
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: 'none', sm: 'block' },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            }}
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Box>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            mt: ['48px', '64px'],
+          }}
+        >
+          {/* 主要内容区域 */}
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 }

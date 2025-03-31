@@ -1,21 +1,23 @@
 .layout {
   min-height: 100vh;
+  background-color: var(--default-bg-color);
 }
 
 .header {
   padding: 0;
-  background-color: white;
-  border-bottom: 1px solid #e5e7eb;
+  background-color: var(--default-bg-color);
+  /* border-bottom: 2px solid #e5e7eb; */
 }
 
 .content {
-  background-color: #f9fafb;
+  background-color: var(--default-bg-color);
 }
 
 .container {
   max-width: 80rem;
   margin: 0 auto;
   padding: 1.5rem;
+  background-color: var(--default-bg-color);
 }
 
 @media (min-width: 640px) {

@@ -2,6 +2,7 @@
   max-width: 80rem;
   margin: 0 auto;
   padding: 0 1rem;
+  background-color: var(--default-bg-color) !important;
 }
 
 @media (min-width: 640px) {
@@ -35,11 +36,13 @@
 .title {
   font-size: 1.25rem;
   font-weight: bold;
+  color: var(--default-text-color)
 }
 
 .nav {
   display: none;
   margin-left: 1.5rem;
+  background-color: var(--default-bg-color) !important;
 }
 
 @media (min-width: 640px) {
