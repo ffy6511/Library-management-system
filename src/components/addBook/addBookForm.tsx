@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Upload, message, Form, Input, InputNumber, Alert } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { Stack } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import Paper from '@mui/material/Paper';
 
 type BookFormData = {
   action: string;
@@ -30,6 +33,9 @@ const AddBookForm = () => {
   const [fileList, setFileList] = useState<any[]>([]);
   const [submitStatus, setSubmitStatus] = useState<null | 'success' | 'error'>(null);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [showResults, setShowResults] = useState(false);
+  const [rows, setRows] = useState([]);
+  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 5 });
 
   const onSubmit = (values: any) => {
     const data = {
@@ -58,7 +64,7 @@ const AddBookForm = () => {
   };
 
   const handleBatchSubmit = (data: BatchImportData) => {
-    fetch('/api/books', {
+    fetch('/api/books/batch', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -67,8 +73,16 @@ const AddBookForm = () => {
     })
     .then(response => response.json())
     .then(data => {
+      const totalCount = data.data.reduce((sum: number, book: any) => sum + (book.total || 1), 0);
       setSubmitStatus('success');
-      setSubmitMessage(`成功导入${data.importedCount}本图书`);
+      setSubmitMessage(`成功导入${totalCount}本图书`);
+      setRows(data.data.map((book: any) => ({
+        ...book,
+        price: Number(book.price),
+        createdAt: new Date(book.createdAt).toLocaleString(),
+        updatedAt: new Date(book.updatedAt).toLocaleString()
+      })));
+      setShowResults(true);
       setFileList([]);
       form.resetFields();
     })
@@ -85,13 +99,18 @@ const AddBookForm = () => {
       try {
         const content = e.target?.result as string;
         const lines = content.split('\n').filter(line => line.trim());
-        const headers = lines[0].split(',');
-        const books = lines.slice(1).map(line => {
-          const values = line.split(',');
-          return headers.reduce((obj, header, index) => {
-            obj[header.trim()] = values[index]?.trim();
-            return obj;
-          }, {} as any);
+        const books = lines.map(line => {
+          const [id, category, title, publisher, publishYear, author, price, count] = line.split(',').map(val => val.trim());
+          return {
+            id,
+            category,
+            title,
+            publisher,
+            publishYear: parseInt(publishYear) || 0,
+            author,
+            price: parseFloat(price) || 0,
+            count: parseInt(count) || 1 // 默认入库数量为1
+          };
         });
 
         handleBatchSubmit({
@@ -222,19 +241,61 @@ const AddBookForm = () => {
         </Form>
       ) : (
         <div>
-          <Upload
-            accept=".csv"
-            beforeUpload={beforeUpload}
-            fileList={fileList}
-            onChange={({ fileList }) => setFileList(fileList)}
-          >
-            <Button icon={<UploadOutlined />}>选择CSV文件</Button>
-          </Upload>
-          <div style={{ marginTop: 16 }}>
-            <p>CSV文件格式要求:</p>
-            <p>第一行应为标题行: id,category,title,publisher,publishYear,author,price</p>
-            <p>每行对应一本图书的信息</p>
+          <div style={{ marginBottom: 16 }}>
+            <Button 
+              type={!showResults ? 'primary' : 'default'} 
+              onClick={() => setShowResults(false)}
+            >
+              上传文件
+            </Button>
+            <Button 
+              type={showResults ? 'primary' : 'default'} 
+              onClick={() => setShowResults(true)}
+              style={{ marginLeft: 8 }}
+              disabled={rows.length === 0}
+            >
+              导入结果
+            </Button>
           </div>
+
+          {!showResults ? (
+            <div>
+              <Upload
+                accept=".csv"
+                beforeUpload={beforeUpload}
+                fileList={fileList}
+                onChange={({ fileList }) => setFileList(fileList)}
+              >
+                <Button icon={<UploadOutlined />}>选择CSV文件</Button>
+              </Upload>
+              <div style={{ marginTop: "40px" }}>
+                <strong>CSV文件格式要求:</strong>
+                <p>每行数据格式: id,category,title,publisher,publishYear,author,price,count(缺省为1)</p>
+                <p>每行对应一本图书的信息</p>
+              </div>
+            </div>
+          ) : (
+            <Paper sx={{ height: 400, width: '100%' }}>
+              <DataGrid
+                rows={rows}
+                columns={[
+                  { field: 'id', headerName: 'ID', width: 70 },
+                  { field: 'title', headerName: '书名', width: 130 },
+                  { field: 'category', headerName: '类别', width: 130 },
+                  { field: 'publisher', headerName: '出版社', width: 130 },
+                  { field: 'author', headerName: '作者', width: 130 },
+                  { field: 'publishYear', headerName: '出版年份', type: 'number', width: 90 },
+                  { field: 'price', headerName: '价格', type: 'number', width: 90 },
+                  { field: 'total', headerName: '总数', type: 'number', width: 90 },
+                  { field: 'stock', headerName: '库存', type: 'number', width: 90 },
+                ]}
+                paginationModel={paginationModel}
+                onPaginationModelChange={setPaginationModel}
+                pageSizeOptions={[5, 10, 20]}
+                sx={{ border: 0 }}
+              />
+            </Paper>
+          )}
         </div>
       )}
     </div>
