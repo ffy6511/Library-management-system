@@ -28,10 +28,10 @@ body {
   --hover-bg-color: rgba(255, 255, 255, 0.1);
   --multiselect-bg-color: rgba(24, 144, 255, 0.2);
   --selected-bg-color: rgba(255, 255, 255, 0.15);
-  --default-bg-color: rgba(51,51,51);
+  --default-bg-color: rgba(30,30,30);
   --selected-text-color: #ffffff;
   --hover-text-color: #ffffff;
-  --default-text-color: rgba(237,237,237, 0.9);
+  --default-text-color: rgba(221,221,221);
   color: var(--default-text-color);
 }
 
@@ -90,7 +90,7 @@ a {
 }
 
 :root[data-theme='dark'] {
-  --card-bg-color: #403f3f;
+  --card-bg-color: #343333;
   --card-text-color: #f3f4f6;
   --card-secondary-text-color: #9ca3af;
   --card-icon-bg-color: #2d2d2d;

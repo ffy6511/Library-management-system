@@ -19,7 +19,7 @@ export default function Navbar({ children }: NavbarProps) {
             <span className={styles.title}>图书管理系统</span>
           </div>
           <div className={styles.nav}>
-            <Menu mode="horizontal" defaultSelectedKeys={['1']} style={{ backgroundColor: 'transparent' }}>
+            <Menu mode="horizontal" defaultSelectedKeys={['1']} style={{ backgroundColor: 'transparent'  }}>
               <Menu.Item key="1">
                 <Link href="/">首页</Link>
               </Menu.Item>

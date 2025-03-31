@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { Form, Input, Button, message, Space, Select } from 'antd';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 interface CardData {
   id: string;
@@ -14,6 +17,7 @@ export default function CardForm() {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [action, setAction] = useState<'create' | 'delete'>('create');
+  const [cardInfo, setCardInfo] = useState<CardData | null>(null);
 
   const handleSubmit = async (values: any) => {
     const key = 'cardOperation';
@@ -39,6 +43,11 @@ export default function CardForm() {
       }
 
       message.success({ content: action === 'create' ? '借书证创建成功' : '借书证删除成功', key });
+      if (action === 'create') {
+        setCardInfo(values as CardData);
+      } else {
+        setCardInfo(null);
+      }
       form.resetFields();
     } catch (error) {
       message.error({
@@ -121,6 +130,28 @@ export default function CardForm() {
           <Button onClick={() => form.resetFields()}>重置</Button>
         </Space>
       </Form.Item>
+
+      {cardInfo && (
+        <Card sx={{ minWidth: 275, mt: 2 , background: "rgb(237, 228, 222)"}}>
+          <CardContent>
+            <Typography variant="h5" component="div" gutterBottom>
+            Library card
+            </Typography>
+            <Typography sx={{ fontSize: 14, mb: 1 }} color="text.secondary">
+              借书证ID：{cardInfo.id}
+            </Typography>
+            <Typography sx={{ mb: 1 }}>
+              姓名：{cardInfo.name}
+            </Typography>
+            <Typography sx={{ mb: 1 }}>
+              部门/院系：{cardInfo.department}
+            </Typography>
+            <Typography>
+              类型：{cardInfo.type === 'student' ? '学生' : '教师'}
+            </Typography>
+          </CardContent>
+        </Card>
+      )}
     </Form>
   );
 }
