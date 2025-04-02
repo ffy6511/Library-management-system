@@ -19,7 +19,7 @@ export default function RootLayout({
       <ThemeProvider>
         <SessionProvider>
           <Layout>
-            <div style={{ position: 'fixed', top: '2rem', right: '10rem', zIndex: 1000 }}>
+            <div style={{ position: 'fixed', top: '2rem', right: '5rem', zIndex: 1000 }}>
               <ThemeToggle />
             </div>
             {children}

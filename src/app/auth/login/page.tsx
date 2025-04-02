@@ -38,41 +38,41 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f0f2f5' }}>
-      <div style={{ width: 400, padding: 24, background: '#fff', borderRadius: 8 }}>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color:'var(--default-text-color' }}>
+      <div style={{ width: 300, padding: 24, borderRadius: 8 }}>
         <h2 style={{ textAlign: 'center', marginBottom: 24 }}>图书管理系统登录</h2>
         
         <Form
           form={form}
           name="login"
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 18 }}
+          // labelCol={{ span: 6 }} 
+          // wrapperCol={{ span: 18 }}
           onFinish={handleSubmit}
           autoComplete="off"
         >
           <Form.Item
-            label="管理员ID"
+            // label="管理员ID"
             name="id"
             rules={[{ required: true, message: '请输入管理员ID' }]}
           >
-            <Input placeholder="请输入管理员ID" />
+            <Input placeholder="管理员ID" />
           </Form.Item>
 
           <Form.Item
-            label="密码"
+            // label="密码"
             name="password"
             rules={[{ required: true, message: '请输入密码' }]}
           >
-            <Input.Password placeholder="请输入密码" />
+            <Input.Password placeholder="密码" />
           </Form.Item>
 
           {error && (
-            <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
+            <Form.Item>
               <div style={{ color: '#ff4d4f', textAlign: 'center' }}>{error}</div>
             </Form.Item>
           )}
 
-          <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
+          <Form.Item >
             <Button type="primary" htmlType="submit" loading={loading} block>
               登录
             </Button>

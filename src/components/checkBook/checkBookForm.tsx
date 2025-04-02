@@ -162,7 +162,7 @@ const CheckBookForm = () => {
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 14 }}
           onFinish={onFinish}
-          style={{ maxWidth: 600 }}
+          style={{ maxWidth: 800 }}
         >
           <Form.Item label="图书类别" name="category">
             <Input />

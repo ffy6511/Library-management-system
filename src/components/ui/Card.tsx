@@ -10,7 +10,7 @@ interface CardProps {
   icon?: ReactNode;
 }
 
-export default function Card({ title, description, onClick, icon }: CardProps) {
+export default function MyCard({ title, description, onClick, icon }: CardProps) {
   return (
     <div className={styles.card} onClick={onClick} style={{ cursor: 'pointer' }}>
       <div className={styles.cardContent}>

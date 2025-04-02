@@ -1,6 +1,18 @@
+/* 新增顶部图片样式 */
+.headerImage {
+  width: 97%;
+  height: 400px;
+  display: block; /* 确保图片是块级元素 */
+  margin: 0 auto; /* 水平居中 */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* 修改原有grid样式 */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 1rem;
   padding: 1rem;
 }
@@ -15,4 +27,50 @@
 .loadingText {
   font-size: 1.2rem;
   color: #666;
+}
+
+/* card */
+.card {
+  display: block;
+  padding: 1.5rem;
+  background-color: var(--card-bg-color) !important;
+  color: var(--card-text-color) !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 8rem;
+  height: 1rem;
+  border-radius: 0.375rem;
+  background-color: transparent;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--card-text-color);
+}
+
+.cardDescription {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--card-secondary-text-color);
 }
