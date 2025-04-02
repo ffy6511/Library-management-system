@@ -76,10 +76,10 @@ export default function Manage() {
               title="book management"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h5" sx = {{fontWeight:'500'}} component="div">
                 图书管理
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx = {{opacity:'60%'}}>
                 管理图书信息，包括入库、查询等操作
               </Typography>
             </CardContent>
@@ -97,10 +97,10 @@ export default function Manage() {
               title="return book"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h5" sx = {{fontWeight:'500'}} component="div">
                 还书管理
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx = {{opacity:'60%'}}>
                 处理图书借阅和归还，查看借阅记录
               </Typography>
             </CardContent>
@@ -118,10 +118,10 @@ export default function Manage() {
               title="card management"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h5" sx = {{fontWeight:'500'}} component="div">
                 借书证管理
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx = {{opacity:'60%'}}>
                 管理借书证的增加、删除和信息修改
               </Typography>
             </CardContent>
@@ -139,10 +139,10 @@ export default function Manage() {
               title="book query"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h5" sx = {{fontWeight:'500'}} component="div">
                 图书查询
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx = {{opacity:'60%'}}>
                 查询图书信息，包括库存、价格等
               </Typography>
             </CardContent>

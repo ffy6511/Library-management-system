@@ -21,10 +21,10 @@ export default function Navbar({ children }: NavbarProps) {
           <div className={styles.nav}>
             <Menu mode="horizontal" defaultSelectedKeys={['1']} style={{ backgroundColor: 'transparent'  }}>
               <Menu.Item key="1">
-                <Link href="/">首页</Link>
+                <Link href="/">Home</Link>
               </Menu.Item>
               <Menu.Item key="2">
-                <Link href="/about">关于</Link>
+                <Link href="/about">News</Link>
               </Menu.Item>
             </Menu>
           </div>

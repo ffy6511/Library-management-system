@@ -36,10 +36,10 @@ export default function RootLayout({
               zIndex: 999
             }}>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem' }}>
-                <a href="/about" style={{ color: 'inherit' }}>关于我们</a>
-                <a href="/contact" style={{ color: 'inherit' }}>联系我们</a>
-                <a href="/privacy" style={{ color: 'inherit' }}>隐私政策</a>
-                <a href="/terms" style={{ color: 'inherit' }}>使用条款</a>
+                <a href="https://mybook-liart-omega.vercel.app/" target = '_blank' style={{ color: 'inherit' }}>关于我们</a>
+                <a href="https://mybook-liart-omega.vercel.app/about/"  target = '_blank' style={{ color: 'inherit' }}>联系我们</a>
+                <a href="https://policies.google.com/privacy" target="_blank" style={{ color: 'inherit' }}>隐私政策</a>
+                <a href="https://policies.google.com/terms" target = '_blank' style={{ color: 'inherit' }}>使用条款</a>
               </div>
               {/* <p style={{ marginTop: '0.5rem' }}>© {new Date().getFullYear()} 图书馆管理系统</p> */}
             </footer>

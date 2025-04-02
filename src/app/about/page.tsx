@@ -6,6 +6,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Papa from 'papaparse';
 import CategoryChart from '@/components/shared/CategoryChart';
+import { ClockCircleOutlined, BarChartOutlined } from '@ant-design/icons';
 
 interface Book {
   id: string;
@@ -127,16 +128,16 @@ export default function About() {
   return (
     <div style = {{color: 'var(--default-text-color'}} >
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom sx = {{fontWeight:'600' , textAlign:'center', marginBottom:'3rem'}}>
         图书统计
       </Typography>
       <Box sx={{ display: 'flex', gap: 3, flexWrap: 'nowrap' }}>
         <Paper sx={{ flex: '1 1 300px', height: 500, padding: '20px', borderRadius: '10px' }}>
-          <Typography variant="h6" gutterBottom>图书分类统计</Typography>
+          <Typography variant="h5" gutterBottom sx = {{fontWeight:'550', textAlign:'center' }}> <BarChartOutlined /> 图书分类统计</Typography>
           <CategoryChart data={categoryStats} />
         </Paper>
         <Paper sx={{ flex: '1 1 500px', height: 500, padding: '20px', borderRadius: '10px', width:'50%' }}>
-          <Typography variant="h6" gutterBottom>近期上线</Typography>
+          <Typography variant="h5" gutterBottom sx = {{fontWeight:'550', textAlign:'center' }}> <ClockCircleOutlined /> 计划上线</Typography>
           <DataGrid
             rows={upcomingBooks}
             columns={[
