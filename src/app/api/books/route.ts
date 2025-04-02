@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { importBook } from "@/lib/book-utils";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,6 +14,26 @@ export async function POST(request: NextRequest) {
 
       const book = await importBook(data);
       return NextResponse.json(book);
+    }
+    else if (action === 'groupby') {
+      // 按类别统计图书条目数
+      const result = await prisma.book.groupBy({
+        by: ['category'],
+        _count: true,
+        orderBy: {
+          _count: {
+            id: 'desc'
+          }
+        },
+        take: 6
+      });
+
+      const categoryStats = result.map(item => ({
+        category: item.category || '未分类',
+        total: item._count || 0
+      }));
+
+      return NextResponse.json({ data: categoryStats });
     }
     else if (action === 'query') {
       // 图书查询逻辑

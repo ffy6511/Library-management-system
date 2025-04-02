@@ -32,10 +32,10 @@
 /* card */
 .card {
   display: block;
-  padding: 1.5rem;
+  /* padding: 1.5rem; */
   background-color: var(--card-bg-color) !important;
   color: var(--card-text-color) !important;
-  border-radius: 0.5rem !important;
+  border-radius: 0.2rem !important;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
   transition: all 0.2s ease-in-out !important;
 }

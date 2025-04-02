@@ -95,3 +95,32 @@ a {
   --card-secondary-text-color: #9ca3af;
   --card-icon-bg-color: #2d2d2d;
 }
+
+
+:root {
+  --footer-bg: #f0f2f5;
+  --footer-text: #333;
+}
+
+[data-theme="dark"] {
+  --footer-bg: #1a1a1a;
+  --footer-text: #e0e0e0;
+}
+
+footer {
+  padding: 0.5rem;
+  text-align: center;
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+}
+
+footer a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+footer a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
