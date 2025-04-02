@@ -1,12 +1,16 @@
 /* 新增顶部图片样式 */
+.topContainer {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
 .headerImage {
-  width: 97%;
+  width: 60%;
   height: 400px;
-  display: block; /* 确保图片是块级元素 */
-  margin: 0 auto; /* 水平居中 */
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 1rem;
 }
 
 /* 修改原有grid样式 */

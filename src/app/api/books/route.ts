@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { importBook } from "@/lib/book-utils";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+
 
 export async function POST(request: NextRequest) {
   try {

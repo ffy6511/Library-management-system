@@ -18,6 +18,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Records from '@/components/ui/Records';
 
 export default function Manage() {
   const { data: session, status } = useSession();
@@ -58,12 +59,14 @@ export default function Manage() {
   const renderMainContent = () => {
     return (
       <Box sx={{ p: 3 }}>
-        {/* 新增顶部图片 */}
-        <img 
-          src="/img/library-banner.jpg" 
-          alt="图书馆管理系统" 
-          className={styles.headerImage}
-        />
+        <div className={styles.topContainer}>
+          <img 
+            src="/img/library-banner.jpg" 
+            alt="图书馆管理系统" 
+            className={styles.headerImage}
+          />
+          <Records />
+        </div>
         
         <div className={styles.grid}>
           <Card sx={{ maxWidth: 280 }} className={styles.card} onClick={() => showModal("图书管理", <AddBookForm />)}>
