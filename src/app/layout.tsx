@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import "./globals.css";
 import '@ant-design/v5-patch-for-react-19';
+import { GithubOutlined } from '@ant-design/icons';
 
 export default function RootLayout({
   children,
@@ -38,6 +39,7 @@ export default function RootLayout({
               <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem' }}>
                 <a href="https://mybook-liart-omega.vercel.app/" target = '_blank' style={{ color: 'inherit' }}>关于我们</a>
                 <a href="https://mybook-liart-omega.vercel.app/about/"  target = '_blank' style={{ color: 'inherit' }}>联系我们</a>
+                <a href="https://policies.google.com/terms" target = '_blank' style={{ color: 'inherit' }}><GithubOutlined /></a>
                 <a href="https://policies.google.com/privacy" target="_blank" style={{ color: 'inherit' }}>隐私政策</a>
                 <a href="https://policies.google.com/terms" target = '_blank' style={{ color: 'inherit' }}>使用条款</a>
               </div>
